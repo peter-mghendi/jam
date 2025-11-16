@@ -1,8 +1,13 @@
 module jam
 
-go 1.23
+go 1.23.0
 
-require github.com/spf13/cobra v1.10.1
+toolchain go1.23.4
+
+require (
+	github.com/spf13/cobra v1.10.1
+	mvdan.cc/sh/v3 v3.12.0
+)
 
 require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
