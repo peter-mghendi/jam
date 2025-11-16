@@ -3,6 +3,7 @@ package handlers
 import (
 	"bytes"
 	"fmt"
+	"jam/lib/jamfile"
 	"jam/lib/jamrc"
 )
 
@@ -15,9 +16,9 @@ func Init(force bool, pretend bool) error {
 		return fmt.Errorf("~/.jamrc already exists. Use --force to overwrite")
 	}
 
-	file := jamrc.Empty()
 	buffer := &bytes.Buffer{}
-	if err := jamrc.Render(&file, buffer); err != nil {
+	file := jamfile.ToSyntaxFile(&jamfile.Document{})
+	if err := jamrc.Render(file, buffer); err != nil {
 		return err
 	}
 
@@ -30,6 +31,10 @@ func Init(force bool, pretend bool) error {
 		return err
 	}
 
-	fmt.Println("[INFO] ~/.jamrc initialized successfully.")
+	fmt.Printf("[INFO] ~/.jamrc initialized successfully. Add the following lines to the end of ~/.bashrc:\n\n")
+	fmt.Println(`  if [ -f ~/.jamrc ]; then
+      . ~/.jamrc
+  fi`)
+
 	return nil
 }
