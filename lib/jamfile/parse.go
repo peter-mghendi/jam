@@ -19,7 +19,7 @@ const (
 
 // FromSyntaxFile walks a *syntax.File and builds a Document.
 func FromSyntaxFile(f *syntax.File) (*Document, error) {
-	doc := &Document{Aliases: []Alias{}}
+	document := &Document{Aliases: map[string]Alias{}}
 
 	metaByName := map[string]Alias{}
 	targetByName := map[string]string{}
@@ -87,10 +87,10 @@ func FromSyntaxFile(f *syntax.File) (*Document, error) {
 
 	for name, meta := range metaByName {
 		meta.Target = coalesce(meta.Target, targetByName[name])
-		doc.Aliases = append(doc.Aliases, meta)
+		document.Aliases[name] = meta
 	}
 
-	return doc, nil
+	return document, nil
 }
 
 func isDeclareAssoc(d *syntax.DeclClause) bool {
@@ -128,8 +128,7 @@ func wordToString(w *syntax.Word) string {
 				case *syntax.Lit:
 					b.WriteString(qv.Value)
 				case *syntax.ParamExp:
-					// ${HOME} or $HOME – keep as $HOME for now.
-					// If you want pure expanded paths, you can resolve later.
+					// Using $HOME for tilde.
 					b.WriteString("$")
 					b.WriteString(qv.Param.Value)
 				}

@@ -8,6 +8,16 @@ import (
 	"path/filepath"
 )
 
+func Detect() error {
+	if exists, err := Exists(); err != nil {
+		return fmt.Errorf("failed to check if .jamrc exists: %w", err)
+	} else if !exists {
+		return fmt.Errorf("~/.jamrc does not exist. Use jam init to create one")
+	}
+
+	return nil
+}
+
 // Exists returns a boolean representing whether a jamfile exists, or false and an error
 func Exists() (bool, error) {
 	path, err := jamfile()

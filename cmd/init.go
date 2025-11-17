@@ -33,5 +33,5 @@ func init() {
 	rootCmd.AddCommand(initCmd)
 
 	initCmd.Flags().Bool("force", false, "Overwrite existing .jamrc if it exists.")
-	initCmd.Flags().Bool("pretend", false, "Print the generated .jamrc to STDOUT.")
+	initCmd.Flags().Bool("pretend", false, "Print the generated .jamrc to STDOUT without writing it to disk.")
 }

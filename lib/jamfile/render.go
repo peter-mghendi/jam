@@ -1,7 +1,9 @@
 package jamfile
 
 import (
+	"bytes"
 	"fmt"
+	"jam/lib/jamrc"
 	"strconv"
 	"time"
 
@@ -38,7 +40,26 @@ func ToSyntaxFile(document *Document) *syntax.File {
 	return f
 }
 
-func buildMetaStmt(a Alias) *syntax.Stmt {
+// Write handles writing a jamfile.Document back to disk or STDOUT
+func Write(document *Document, pretend bool) error {
+	buffer := &bytes.Buffer{}
+	render := ToSyntaxFile(document)
+	if err := jamrc.Render(render, buffer); err != nil {
+		return err
+	}
+
+	if pretend {
+		fmt.Print(buffer.String())
+		return nil
+	}
+
+	if err := jamrc.Write(buffer); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func buildMetaStmt(alias Alias) *syntax.Stmt {
 	arrayElems := []*syntax.ArrayElem{
 		arrayKV(keyTarget, alias.Target),

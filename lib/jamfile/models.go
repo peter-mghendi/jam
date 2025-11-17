@@ -3,7 +3,7 @@ package jamfile
 import "time"
 
 type Document struct {
-	Aliases []Alias
+	Aliases map[string]Alias
 }
 
 type Alias struct {
