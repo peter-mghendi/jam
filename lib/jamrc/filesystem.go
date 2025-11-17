@@ -52,7 +52,7 @@ func Read() ([]byte, error) {
 	return data, nil
 }
 
-// Write outputs the provided bytes.Buffer to the jamfile dir, or to STDOUT if pretend is true
+// Write outputs the provided bytes.Buffer to the jamfile dir
 func Write(buffer *bytes.Buffer) error {
 	path, err := jamfile()
 	if err != nil {
