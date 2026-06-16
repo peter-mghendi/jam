@@ -17,6 +17,7 @@ jam:
 - Stores aliases + metadata in a machine-friendly format.
 - Regenerates `~/.jamrc` safely after every change using a robust AST-aware parser.
 - Lets you preview changes before writing.
+- Is useful for pointing aliases at executables and scripts.
 
 ---
 
@@ -30,9 +31,7 @@ jam is experimental and currently supports:
 - `add` - add a new alias
 - `remove` - remove an alias
 - `enable` - mark an alias as enabled
-- `disable` - mark an alias as disabled
-
-More commands (export, edit, etc.) may come later.
+- `disable` - mark an alias as disables
 
 ---
 
@@ -276,6 +275,7 @@ By default, jam will not perform any destructive actions and instead display a h
 
 **4. What does this cost?**  
 Nothing. Can you imagine?
+
 ---
 
 ## License
